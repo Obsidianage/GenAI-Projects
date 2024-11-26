@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+ ## HF_TOKEN is obtained by craeting a .env file in the same directory and placing the Hugging face Token 
+ ## format is: HF_TOKEN = "your_token_here"
 token = os.environ['HF_TOKEN']
 ST = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
 
@@ -66,50 +68,6 @@ def format_prompt(prompt, retrieved_documents,k):
     return PROMPT
 
 @spaces.GPU(duration=150)
-# def talk(prompt, history):
-#     k = 1
-#     scores, retrieved_documents = search(prompt, k)
-#     formatted_prompt = format_prompt(prompt,retrieved_documents,k)
-#     formatted_prompt = formatted_prompt[:2000]
-#     messages = tokenizer.chat_template = [{"role":"system","content":SYS_PROMPT},
-#                 {"role":"user","content":formatted_prompt}]
-#     input_ids = tokenizer.apply_chat_template(
-#         messages,
-#         add_generation_prompt=True,
-#         return_tensors="pt"
-#         ).to(model.device)
-    
-
-
-#     outputs = model.generate(
-#         input_ids,
-#         max_new_tokens = 1024,
-#         eos_token_id=terminators,
-#         do_sample=True,
-#         temperature = 0.6,
-#         top_p=0.9,
-#     )
-
-#     streamer = TextIteratorStreamer(
-#         tokenizer, timeout=10.0, skip_prompt=True,skip_special_tokens=True
-#     )
-#     generate_kwargs= dict(
-#         input_ids = input_ids,
-#         streamer=streamer,
-#         max_new_tokens=1024,
-#         do_sample=True,
-#         top_p=0.95,
-#         temperature=0.75,
-#         eos_token_id = terminators
-#     )
-#     t = Thread(target=model.generate, kwargs=generate_kwargs)
-#     t.start()
-
-#     output= []
-#     for text in streamer:
-#         outputs.append(text)
-#         print(outputs)
-#         yield "".join(outputs)
 def talk(prompt, history):
     k = 3
     scores, retrieved_documents = search(prompt, k)
