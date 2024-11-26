@@ -7,7 +7,7 @@ This repository contains various Generative AI projects developed to explore, un
 ## Table of Contents
 1. [Overview](#overview)
 2. [Projects](#projects)
-   - [Project 1: Project Name 1](#project-1-project-name-1)
+   - [Project 1: Project Name 1](#project-1-Rag-Chatbot)
 ---
 
 ## Overview
