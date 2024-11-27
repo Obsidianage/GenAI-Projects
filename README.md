@@ -24,5 +24,5 @@ Each project here is crafted with a focus on:
 ### **Project 1: [RAG Chatbot]**
 - **Description**: Created a RAG pipline where u can download llama3 onward models and create a Chatbot.
 - **Files**: 
-  1. app.py - downloading model from hugging face or meta
+  1. HF_app.py - downloading model from hugging face or meta
   2. ollama_app.py - use models directly from ollama
