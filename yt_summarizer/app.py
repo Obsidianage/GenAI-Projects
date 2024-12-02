@@ -1,11 +1,14 @@
 import streamlit as st
 from dotenv import load_dotenv
+import google.generativeai as genai
 
 load_dotenv()
 import os
 import ollama
 
 from youtube_transcript_api import YouTubeTranscriptApi
+
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 prompt = """
 Summarize the given transcript text. Provide the summary in **bullet points**, ensuring it highlights the key points in a professional and concise manner. Limit the summary to 250 words. Here is the transcript text:
@@ -26,7 +29,12 @@ def extract_trascript_details(youtube_video_url):
         return transcript
     except Exception as e:
         raise e
-    
+
+def generate_gemini_content(transcript_text,prompt):
+
+    model=genai.GenerativeModel("gemini-pro")
+    response=model.generate_content(prompt+transcript_text)
+    return response.text
 
 def generate_ollama_content(transcript_text, prompt):
     # Format the messages with role and content
@@ -56,7 +64,8 @@ if st.button("Get Detailed Notes"):
     transcript_text = extract_trascript_details(youtube_link)
 
     if transcript_text:
-        summary=generate_ollama_content(transcript_text,prompt)
+        # summary=generate_ollama_content(transcript_text,prompt)
+        summary=generate_gemini_content(transcript_text,prompt)
         st.markdown("## Detailed notes:")
         st.write(summary)
         print("\n")
